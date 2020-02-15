@@ -1,39 +1,5 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const BounceInput = keyframes`
- 0% {
-    transform: translateX(0px);
-    timing-function: ease-in;
-  }
-  37% {
-    transform: translateX(14px);
-    timing-function: ease-out;
-  }
-  55% {
-    transform: translateX(-14px);
-    timing-function: ease-in;
-  }
-  73% {
-    transform: translateX(14px);
-    timing-function: ease-out;
-  }
-  82% {
-    transform: translateX(-14px);
-    timing-function: ease-in;
-  }
-  91% {
-    transform: translateX(14px);
-    timing-function: ease-out;
-  }
-  96% {
-    transform: translateX(-14px);
-    timing-function: ease-in;
-  }
-  100% {
-    transform: translateX(0px);
-    timing-function: ease-in;
-  }
-`;
 export const LoginPageWrap = styled.div``;
 
 export const LoginMessage = styled.div``;

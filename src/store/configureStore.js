@@ -21,7 +21,7 @@ export default function configureStore(initialState = {}, history = {}) {
   const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['news'],
+    whitelist: ['auth'],
   };
 
   if (module.hot) {

@@ -29,7 +29,6 @@ export const defaultThemes = {
     ColorBgSilver: '#f4f5f7',
     ColorBgHover: '#ffe2ba',
     ColorBgContent: '#f6f7fb',
-    ColorHint: '#CCCCCC',
     ColorPrimary: '#2b1a08',
     ColorSecond: '#a7a7a7',
     ColorDark: '#1b1b1b',

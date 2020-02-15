@@ -27,7 +27,6 @@ const validationSchema = Yup.object().shape({
 
 const initialValues = {
   userName: '',
-  itentityNumber: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -36,12 +35,16 @@ const initialValues = {
 export default class AdminRegister extends PureComponent {
   static propTypes = {
     isLoading: PropTypes.bool,
-    userRegister: PropTypes.func.isRequired,
+    adminRegister: PropTypes.func.isRequired,
   }
 
-  userRegisterSubmit = (values) => {
-    const { userRegister } = this.props;
-    userRegister(values);
+  adminRegisterSubmit = (values) => {
+    const { adminRegister } = this.props;
+    const adminValue = { 
+      ...values,
+      role: 'admin'
+    };
+    adminRegister(adminValue);
   }
 
   renderLoginBtn = () => {
@@ -63,7 +66,7 @@ export default class AdminRegister extends PureComponent {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={this.userRegisterSubmit}
+            onSubmit={this.adminRegisterSubmit}
           >
             <Form>
               <FormInput

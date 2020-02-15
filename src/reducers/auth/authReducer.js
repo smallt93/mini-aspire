@@ -1,31 +1,85 @@
-export const AUTH_USER_LOGIN = 'auth/AUTH_USER_LOGIN';
-export const AUTH_ADMIN_LOGIN = 'auth/AUTH_ADMIN_LOGIN';
+export const AUTH_LOGIN = 'auth/AUTH_LOGIN';
 export const AUTH_LOGIN_SUCCESS = 'auth/AUTH_LOGIN_SUCCESS';
 export const AUTH_LOGIN_FAILED = 'auth/AUTH_LOGIN_FAILED';
+
+export const AUTH_REGISTER_USER = 'auth/AUTH_REGISTER_USER';
+export const AUTH_REGISTER_USER_SUCCESS = 'auth/AUTH_REGISTER_USER_SUCCESS';
+export const AUTH_REGISTER_USER_FAILED = 'auth/AUTH_REGISTER_USER_FAILED';
+
+export const AUTH_REGISTER_ADMIN = 'auth/AUTH_REGISTER_ADMIN';
+export const AUTH_REGISTER_ADMIN_SUCCESS = 'auth/AUTH_REGISTER_ADMIN_SUCCESS';
+export const AUTH_REGISTER_ADMIN_FAILED = 'auth/AUTH_REGISTER_ADMIN_FAILED';
+
+export const AUTH_LOGOUT = 'auth/AUTH_LOGOUT';
 
 const initialState = {
   isLoading: false,
   authenticated: false,
   errorMessage: '',
+  userData: {},
+  adminData: {},
+  userRole: null,
 };
 
+export const getUserData = ({ auth }) => auth.userData;
+export const getAdminData = ({ auth }) => auth.adminData;
 export const getAuthenticatedStatus = ({ auth }) => !!auth.authenticated;
+export const getUserRole = ({ auth }) => auth.userRole;
+export const getErrorMessage = ({ auth }) => auth.errorMsg;
+export const isRegistering = ({ auth }) => auth.isRegistering;
 
 export const selectors = {
+  getUserData,
+  getAdminData,
+  getUserRole,
   getAuthenticatedStatus,
+  getErrorMessage,
+  isRegistering,
 };
 
-const userLogin = () => ({
-  type: AUTH_USER_LOGIN,
-});
+// user register
 
-const adminLogin = () => ({
-  type: AUTH_ADMIN_LOGIN,
-});
-
-const loginSuccess = (userData) => ({
-  type: AUTH_LOGIN_SUCCESS,
+const userRegister = (userData) => ({
+  type: AUTH_REGISTER_USER,
   userData,
+});
+
+const userRegisterSuccess = (userData) => ({
+  type: AUTH_REGISTER_USER_SUCCESS,
+  userData,
+});
+
+const userRegisterFailed = (errorMsg) => ({
+  type: AUTH_REGISTER_USER_FAILED,
+  errorMsg,
+});
+
+// admin register
+
+const adminRegister = (adminData) => ({
+  type: AUTH_REGISTER_ADMIN,
+  adminData,
+});
+
+const adminRegisterSuccess = (userData) => ({
+  type: AUTH_REGISTER_ADMIN_SUCCESS,
+  userData,
+});
+
+const adminRegisterFailed = (errorMsg) => ({
+  type: AUTH_REGISTER_ADMIN_FAILED,
+  errorMsg,
+});
+
+// login
+
+const login = (loginValue) => ({
+  type: AUTH_LOGIN,
+  loginValue,
+});
+
+const loginSuccess = () => ({
+  type: AUTH_LOGIN_SUCCESS,
 });
 
 const loginFailed = (errorMessage) => ({
@@ -33,17 +87,68 @@ const loginFailed = (errorMessage) => ({
   errorMessage,
 });
 
+const logout = () => ({
+  type: AUTH_LOGOUT,
+});
+
 export const actions = {
-  userLogin,
-  adminLogin,
+  userRegister,
+  userRegisterSuccess,
+  userRegisterFailed,
+
+  adminRegister,
+  adminRegisterSuccess,
+  adminRegisterFailed,
+
+  login,
   loginSuccess,
   loginFailed,
+
+  logout,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case AUTH_USER_LOGIN:
-    case AUTH_ADMIN_LOGIN: {
+    case AUTH_REGISTER_USER:
+    case AUTH_REGISTER_ADMIN: {
+      return {
+        ...state,
+        isRegistering: true,
+        errorMsg: null,
+      };
+    }
+
+    case AUTH_REGISTER_USER_SUCCESS: {
+      const { userData } = action;
+      return {
+        ...state,
+        userData,
+        userRole: (userData || {}).role,
+        isRegistering: false,
+      };
+    }
+
+    case AUTH_REGISTER_ADMIN_SUCCESS: {
+      const { adminData } = action;
+      return {
+        ...state,
+        adminData,
+        userRole: (adminData || {}).role,
+        isRegistering: false,
+      };
+    }
+
+    case AUTH_REGISTER_USER_FAILED:
+    case AUTH_REGISTER_ADMIN_FAILED: {
+      const { errorMsg } = action;
+      return {
+        ...state,
+        errorMsg,
+        isRegistering: false,
+      };
+    }
+
+    case AUTH_LOGIN: {
       return {
         ...state,
         isLoading: true,
@@ -52,10 +157,8 @@ export default function reducer(state = initialState, action) {
     };
 
     case AUTH_LOGIN_SUCCESS: {
-      const { userData } = action;
       return {
         ...state,
-        userData,
         isLoading: false,
         authenticated: true,
         errorMessage: '',
@@ -70,6 +173,13 @@ export default function reducer(state = initialState, action) {
         errorMessage,
       };
     };
+
+    case AUTH_LOGOUT: {
+      return {
+        ...state,
+        authenticated: false,
+      }
+    }
   
     default:
       return state;

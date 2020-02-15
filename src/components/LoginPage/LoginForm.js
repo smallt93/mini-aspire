@@ -34,7 +34,7 @@ export default class StudentLoginForm extends PureComponent {
     errorMessage: PropTypes.any,
   }
 
-  login = (loginValues) => {
+  loginSubmit = (loginValues) => {
     const { login } = this.props;
     login(loginValues);
   }
@@ -58,13 +58,13 @@ export default class StudentLoginForm extends PureComponent {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={this.login}
+            onSubmit={this.loginSubmit}
           >
             <Form noValidate>
               <FormInput
                 type="email"
                 name="email"
-                label="Email or Username"
+                label="Email"
               />
               <FormInput
                 type={'password'}

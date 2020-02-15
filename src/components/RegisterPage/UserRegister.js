@@ -27,7 +27,6 @@ const validationSchema = Yup.object().shape({
 
 const initialValues = {
   userName: '',
-  itentityNumber: '',
   email: '',
   password: '',
   confirmPassword: '',
@@ -41,7 +40,11 @@ export default class UserRegister extends PureComponent {
 
   userRegisterSubmit = (values) => {
     const { userRegister } = this.props;
-    userRegister(values);
+    const userValue = { 
+      ...values,
+      role: 'user'
+    };
+    userRegister(userValue);
   }
 
   renderLoginBtn = () => {

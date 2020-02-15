@@ -4,10 +4,7 @@ import {
 } from 'react-tabs';
 import UserRegisterForm from '../../containers/RegisterPage/UserRegister';
 import AdminRegisterForm from '../../containers/RegisterPage/AdminRegister';
-import {
-  LoginItemWrap,
-  LoginItem,
-} from '../LoginPage/LoginPage.style';
+import { LoginItemWrap } from '../LoginPage/LoginPage.style';
 
 export default class RegisterPage extends PureComponent {
   render() {
