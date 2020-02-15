@@ -5,6 +5,7 @@ import {
 import { Field, getIn } from 'formik';
 import _ from 'lodash';
 import Select from 'react-select';
+import DatePicker from 'react-datepicker';
 import FormLabel from './FormLabel';
 import {
   FormItem,
@@ -13,6 +14,7 @@ import {
   FormInputWrapperStyled,
   FormCheckboxStyled,
 } from './Form.style';
+import 'react-datepicker/dist/react-datepicker.css';
 
 export const INPUT_TYPES = {
   TEXT: 'text',
@@ -21,6 +23,7 @@ export const INPUT_TYPES = {
   CHECKBOX: 'checkbox',
   SELECT: 'select',
   TEXT_AREA: 'textarea',
+  DATE_PICKER: 'date',
 };
 
 const FORM_LAYOUT = {
@@ -273,6 +276,53 @@ class FormInput extends React.Component {
     );
   };
 
+  renderDatePicker = ({
+    field, // { name, value, onChange, onBlur }
+    form: { touched, errors, setFieldValue },
+    formLayout,
+    label,
+    minDate,
+    ...rest
+  }) => {
+    const onChange = (date) => {
+      setFieldValue(field.name, date === null ? '' : date);
+    };
+
+    const isTouched = getIn(touched, field.name);
+    let errorMessage = '';
+    let validateStatus = 'success';
+
+    if (isTouched) {
+      errorMessage = getIn(errors, field.name);
+      if (errorMessage) {
+        validateStatus = 'error';
+      }
+    }
+
+    return (
+      <FormInputWrapperStyled
+        label={label}
+        validateStatus={validateStatus}
+        error={errorMessage}
+        {...formLayout}
+      >
+        <FormLabel label={label} />
+        <DatePicker
+          value={field.value}
+          selected={field.value}
+          onChange={onChange}
+          dateFormat="yyyy/MM/dd"
+          ref={this.input}
+          minDate={new Date(minDate)}
+          {...rest}
+        />
+        {errorMessage && (
+          <FormError className="form-error">{errorMessage}</FormError>
+        )}
+      </FormInputWrapperStyled>
+    );
+  };
+
   renderFormInput = (props) => {
     const { type } = props;
     switch (type) {
@@ -286,6 +336,8 @@ class FormInput extends React.Component {
         return this.renderCheckbox(props);
       case INPUT_TYPES.SELECT:
         return this.renderSelect(props);
+      case INPUT_TYPES.DATE_PICKER:
+        return this.renderDatePicker(props);
       default:
         return this.renderTextInput(props);
     }

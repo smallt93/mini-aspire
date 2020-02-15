@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
+import LeftSideBar from '../LeftSideBar';
 import { PrimaryLayout } from './MainLayout.style';
-
 
 export default class MainLayout extends PureComponent {
   static propTypes = {};
@@ -8,6 +8,7 @@ export default class MainLayout extends PureComponent {
   render() {
     return (
       <PrimaryLayout>
+        <LeftSideBar />
         {this.props.children}
       </PrimaryLayout>
     );

@@ -11,13 +11,13 @@ const formElementCss = css`
   padding: 5px 10px;
   height: 38px;
   transition: border 0.3s;
-  background: transparent;
+  background: #fff;
+  border-radius: 3px;
   line-height: 1.8;
   z-index: 2;
-  font-family: 'MontserratMedium';
   &:focus {
     outline: none;
-    border-bottom: 1.5px solid #ff9e16;
+    border-bottom: 1.5px solid ${props => props.theme.colorStyled.ColorBgDefault};
   }
 `;
 
@@ -178,23 +178,23 @@ export const FormInputWrapperStyled = styled.div`
   }
   .select__control--is-focused {
     box-shadow: none;
-    border-bottom: 1.5px solid #ff9e16 !important;
+    border-bottom: 1.5px solid ${props => props.theme.colorStyled.ColorBgDefault}; !important;
     .select__indicator {
-      color: #ff9e16 !important;
+      color: ${props => props.theme.colorStyled.ColorBgDefault}; !important;
     }
   }
   .select__option--is-focused {
-    background-color: #cc7906;
+    background-color: #02b358;
     color: #fff;
     &:active {
-      background-color: #cc7906 !important;
+      background-color: #02b358 !important;
     }
   }
   .select__option--is-selected {
-    background-color: #ff9e16 !important;
+    background-color: ${props => props.theme.colorStyled.ColorBgDefault}; !important;
     color: #fff;
     &:active {
-      background-color: #ff9e16 !important;
+      background-color: ${props => props.theme.colorStyled.ColorBgDefault}; !important;
     }
   }
   .select__indicators {
@@ -223,14 +223,15 @@ export const FormInputWrapperStyled = styled.div`
       padding: 5px 10px;
       height: 38px;
       transition: border 0.3s;
-      background: transparent;
+      background: #fff;
+      border-radius: 3px;
       line-height: 1.8;
       z-index: 2;
       cursor: text;
     }
   }
   .react-datepicker-ignore-onclickoutside {
-    border-bottom: 1.5px solid #ff9e16 !important;
+    border-bottom: 1.5px solid #02b358 !important;
   }
   .react-datepicker-popper {
     z-index: 3;
@@ -249,7 +250,6 @@ export const FormInputWrapperStyled = styled.div`
     transition: border 0.3s;
     background: transparent;
     line-height: 1.8;
-    font-family: 'MontserratMedium';
     cursor: text;
     input {
       border: none;
@@ -257,7 +257,7 @@ export const FormInputWrapperStyled = styled.div`
       height: auto;
     }
     &:focus {
-      border-bottom: 1.5px solid #ff9e16 !important;
+      border-bottom: 1.5px solid #02b358 !important;
     }
     .flag-dropdown {
       border: none;
@@ -333,7 +333,7 @@ export const FormInputWrapperStyled = styled.div`
     label {
       top: -17px;
       left: 0px;
-      color: #ff9e16;
+      color: #02b358;
     }
   `};
 
@@ -436,12 +436,12 @@ export const FormItem = styled.div.attrs({
       label {
         top: -17px;
         left: 0px;
-        color: #ff9e16;
+        color: #02b358;
         display: flex;
         align-items: center;
       }
       i {
-        color: #ff9e16 !important;
+        color: #02b358 !important;
       }
     `}
   ${({ inputTable }) => inputTable && css`
@@ -483,8 +483,8 @@ export const FormLabelItem = styled.label`
   display: flex;
   align-items: center;
   z-index: 1;
-  font-size: ${props => props.theme.fontSize.DefaultFontSize};;
-  font-family: 'MontserratRegular';
+  font-size: ${props => props.theme.fontSize.DefaultFontSize};
+  margin-bottom: 10px;
   i {
     margin-left: 10px;
     font-size: 18px;

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import MainLayout from './components/MainLayout';
 import LoginPage from './containers/LoginPage';
 import RegisterPage from './components/RegisterPage';
-import Dashboard from './containers/Dashboard';
+import LoanComponent from './components/LoanComponent';
 
 import {
   AuthenticatedRoute,
@@ -22,8 +22,8 @@ class Router extends React.Component {
 
         <MainLayout>
           <Switch>
-            <AuthenticatedRoute exact path="/dashboard" component={Dashboard} />
-            <Redirect exact from="/" to="/dashboard" />
+            <AuthenticatedRoute exact path="/loans" component={LoanComponent} />
+            <Redirect exact from="/" to="/loans" />
           </Switch>
         </MainLayout>
       </Switch>
