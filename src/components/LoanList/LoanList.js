@@ -61,6 +61,7 @@ class LoanList extends Component {
           {...ColumnSize[5]}
           approved={values.status === STATUS_TYPE.APPROVED}
           dismiss={values.status === STATUS_TYPE.DISMISS}
+          paid={values.status === STATUS_TYPE.PAID}
         >
           {values.status}
         </TableContent>

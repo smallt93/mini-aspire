@@ -101,6 +101,9 @@ export const TableRow = styled(TableHead)`
   ${({ dismiss }) => dismiss && css`
     color: ${props => props.theme.colorStyled.ColorRedDel};
   `}
+  ${({ paid }) => paid && css`
+    color: ${props => props.theme.colorStyled.ColorYellowCheckbox};
+  `}
   ${({ actionType }) => actionType && css`
     cursor: pointer;
     &:hover {

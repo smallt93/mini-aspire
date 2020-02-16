@@ -18,7 +18,6 @@ export default class App extends Component {
     return (
       <>
         <GlobalStyle />
-          
         <Provider store={store}>
           <ThemeProvider theme={defaultThemes}>
             <PersistGate loading={null} persistor={persistor}>

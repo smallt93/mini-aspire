@@ -65,24 +65,6 @@ function* handleLogin({ loginValue }) {
   }
 }
 
-// function* handleTeacherLogin({ payload }) {
-//   try {
-//     const { email, password } = payload;
-//     const { response, error } = yield call(AuthAPIs.getTeacherToken, email, password);
-
-//     if (error) throw error;
-
-//     const { data } = response;
-//     const { user, tokens } = data;
-//     const { access: token, refresh: refreshToken } = tokens;
-
-//     configToken(token);
-//     yield put(AuthActions.loginSuccess(token, refreshToken, user));
-//   } catch (error) {
-//     yield put(AuthActions.loginFailed(error));
-//   }
-// }
-
 function* handleLogout() {
   const location = yield select(getLocation);
   const { pathname } = location;

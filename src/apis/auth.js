@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const userRegister = (userData) => {
   const userResponseData = userData;
   return userResponseData;

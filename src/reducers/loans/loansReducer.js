@@ -16,6 +16,8 @@ export const LOAN_REPAY = 'loan/LOAN_REPAY';
 export const LOAN_REPAY_SUCCESS = 'loan/LOAN_REPAY_SUCCESS';
 export const LOAN_REPAY_FAILED = 'loan/LOAN_REPAY_FAILED';
 
+export const LOAN_SAVE_HISTORY_LIST = 'loan/LOAN_SAVE_HISTORY_LIST';
+
 const initialState = {
   loanData: [],
   isLoading: false,
@@ -23,9 +25,11 @@ const initialState = {
   isRepaySuccess: false,
   loanMessage: '',
   loanSelectedId: null,
+  repaidHistoryList: [],
 };
 
 export const getLoanData = ({ loans }) => loans.loanData;
+export const getRepaidHistoryList = ({ loans }) => loans.repaidHistoryList;
 export const getLoading = ({ loans }) => loans.isLoading;
 export const getLoanSuccess = ({ loans }) => loans.isLoanSuccess;
 export const getRepaySuccess = ({ loans }) => loans.isRepaySuccess;
@@ -39,6 +43,7 @@ export const selectors = {
   getMessageError,
   getLoanSelectedId,
   getRepaySuccess,
+  getRepaidHistoryList,
 }
 
 const loanSubmit = (loanValue) => ({
@@ -94,6 +99,11 @@ const loanRepayFailed = () => ({
   type: LOAN_REPAY_SUCCESS,
 });
 
+const saveHistoryLoanList = (loanItem) => ({
+  type: LOAN_SAVE_HISTORY_LIST,
+  loanItem,
+})
+
 export const actions = {
   loanSubmit,
   loanSubmitSuccess,
@@ -109,6 +119,8 @@ export const actions = {
   loanRepay,
   loanRepaySuccess,
   loanRepayFailed,
+
+  saveHistoryLoanList,
 }
 
 export default function reducer(state = initialState, action) {
@@ -230,6 +242,7 @@ export default function reducer(state = initialState, action) {
         if (l.id === loanId) {
           if (l.amount <= l.payPerWeek) {
             l.amount = 0;
+            l.status = 'paid';
             return l;
           }
           l.amount = l.amount - l.payPerWeek;
@@ -237,10 +250,23 @@ export default function reducer(state = initialState, action) {
         }
         return l;
       })
+
       return {
         ...state,
         isRepaySuccess: true,
         loanData: updateLoanList,
+      }
+    }
+
+    case LOAN_SAVE_HISTORY_LIST: {
+      const { loanItem } = action;
+      const newRepaidHistoryList = [
+        ...state.repaidHistoryList,
+        loanItem,
+      ]
+      return {
+        ...state,
+        repaidHistoryList: newRepaidHistoryList,
       }
     }
 

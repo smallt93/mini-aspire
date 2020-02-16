@@ -20,7 +20,9 @@ const validationSchema = Yup.object().shape({
   dateOfBirth: Yup.string().trim().required('Date of birth is required'),
   country: Yup.string().trim().required('The country is required'),
   phoneNumber: Yup.string().trim().required('The phone number is Required'),
-  amount: Yup.string().trim().required('The amount is required'),
+  amount: Yup.number()
+    .min(50)
+    .required('The amount is required'),
   loanTerm: Yup.string().trim().required('The loan term is required'),
 });
 

@@ -2,16 +2,17 @@ import styled, { css } from 'styled-components';
 import { LoginButton } from '../LoginPage/LoginPage.style';
 
 export const LoanApproveWrap = styled.div`
-  width: 100%;
   height: max-content;
   margin: 2em;
+  width: 100%;
+`;
+
+export const RepaymentWrap = styled.div`
+  height: max-content;
   padding: 2em;
-  border: 1px solid #ccc;
-  border-radius: 10px;
   .loan-select-container {
     margin-bottom: 15px;
   }
-
 `;
 
 export const LoanNoDataMessage = styled.div`

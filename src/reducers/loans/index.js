@@ -1,2 +1,2 @@
-export { default } from './loans';
-export * from './loans';
+export { default } from './loansReducer';
+export * from './loansReducer';

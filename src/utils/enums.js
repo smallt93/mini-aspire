@@ -7,4 +7,5 @@ export const STATUS_TYPE = {
   PROCESS: 'process',
   APPROVED: 'approved',
   DISMISS: 'dismiss',
+  PAID: 'paid',
 }
