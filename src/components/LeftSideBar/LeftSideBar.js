@@ -51,10 +51,10 @@ class LeftSideBar extends Component {
               </Menu.Item>
 
               <Menu.Item key="4" onClick={this.handleLogout}>
-                <a>
+                <div>
                   <Icon type="logout" />
                   <span>Logout</span>
-                </a>
+                </div>
               </Menu.Item>
             </Menu>
           </Sider>

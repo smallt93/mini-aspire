@@ -48,6 +48,7 @@ class LoanForm extends Component {
     const dayOfMonth = moment(loanTerm).diff(loanDate, 'days');
     const weekOfMonths = Math.ceil(dayOfMonth / 7);
     const payPerWeek = Math.round(amount / weekOfMonths);
+    const repaid = 0;
 
     const loanValues = {
       ...values,
@@ -55,6 +56,7 @@ class LoanForm extends Component {
       status: 'process',
       loanDate,
       payPerWeek,
+      repaid,
     }
     loanSubmit(loanValues);
   }

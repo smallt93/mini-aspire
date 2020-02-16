@@ -28,10 +28,11 @@ class RepayHistory extends Component {
       <TableHeader {...ColumnSize[0]} />
       <TableHeader {...ColumnSize[1]} value="Identification Number" />
       <TableHeader {...ColumnSize[2]} value="Amount" />
-      <TableHeader {...ColumnSize[3]} value="Weekly repayment " />
-      <TableHeader {...ColumnSize[4]} value="Term" />
-      <TableHeader {...ColumnSize[5]} value="Loan Date" />
-      <TableHeader {...ColumnSize[6]} value="Repaid Date" />
+      <TableHeader {...ColumnSize[3]} value="Repaid" />
+      <TableHeader {...ColumnSize[4]} value="Weekly repayment " />
+      <TableHeader {...ColumnSize[5]} value="Term" />
+      <TableHeader {...ColumnSize[6]} value="Loan Date" />
+      <TableHeader {...ColumnSize[7]} value="Repaid Date" />
     </TableHeadWrapper>
   )
 
@@ -41,10 +42,11 @@ class RepayHistory extends Component {
         <TableContent {...ColumnSize[0]}>{index + 1}</TableContent>
         <TableContent {...ColumnSize[1]}>{values.identificationNumber}</TableContent>
         <TableContent {...ColumnSize[2]}>{`$${values.amount.toLocaleString('en-GB')}`}</TableContent>
-        <TableContent {...ColumnSize[3]}>{values.payPerWeek}</TableContent>
-        <TableContent {...ColumnSize[4]}>{moment(values.loanTerm).fromNow()}</TableContent>
-        <TableContent {...ColumnSize[5]}>{moment(values.loanDate).format("YYYY/MM/DD h:mm a")}</TableContent>
-        <TableContent {...ColumnSize[6]}>{moment(values.repaidDate).format("YYYY/MM/DD h:mm a")}</TableContent>
+        <TableContent {...ColumnSize[3]}>{`$${values.repaid.toLocaleString('en-GB')}`}</TableContent>
+        <TableContent {...ColumnSize[4]}>{`$${values.payPerWeek.toLocaleString('en-GB')}`}</TableContent>
+        <TableContent {...ColumnSize[5]}>{moment(values.loanTerm).fromNow()}</TableContent>
+        <TableContent {...ColumnSize[6]}>{moment(values.loanDate).format("YYYY/MM/DD h:mm a")}</TableContent>
+        <TableContent {...ColumnSize[7]}>{moment(values.repaidDate).format("YYYY/MM/DD h:mm a")}</TableContent>
       </TableContentItem>
     )
   }

@@ -99,9 +99,9 @@ const loanRepayFailed = () => ({
   type: LOAN_REPAY_SUCCESS,
 });
 
-const saveHistoryLoanList = (loanItem) => ({
+const saveHistoryLoanList = (loanId) => ({
   type: LOAN_SAVE_HISTORY_LIST,
-  loanItem,
+  loanId,
 })
 
 export const actions = {
@@ -149,16 +149,6 @@ export default function reducer(state = initialState, action) {
       }
     }
       
-    case LOAN_SUBMIT_FAILED: {
-      const { errorMsg } = action;
-      return {
-        ...state,
-        isLoading: false,
-        isLoanSuccess: false,
-        loanMessage: errorMsg,
-      }
-    }
-
     case LOAN_SUBMIT_FAILED: {
       const { errorMsg } = action;
       return {
@@ -240,12 +230,12 @@ export default function reducer(state = initialState, action) {
       const newLoanList = [...state.loanData];
       const updateLoanList = newLoanList.map(l => {
         if (l.id === loanId) {
-          if (l.amount <= l.payPerWeek) {
-            l.amount = 0;
+          if (l.amount <= l.repaid) {
+            l.repaid = l.amount;
             l.status = 'paid';
             return l;
           }
-          l.amount = l.amount - l.payPerWeek;
+          l.repaid = l.repaid + l.payPerWeek;
           return l;
         }
         return l;
@@ -259,10 +249,16 @@ export default function reducer(state = initialState, action) {
     }
 
     case LOAN_SAVE_HISTORY_LIST: {
-      const { loanItem } = action;
+      const { loanId } = action;
+      const newLoanList = [...state.loanData];
+      const repaidLoanSelected = newLoanList.find(n => n.id === loanId);
+      const newRepaidLoanSelected = {
+        ...repaidLoanSelected,
+        repaidDate: moment(new Date())
+      };
       const newRepaidHistoryList = [
         ...state.repaidHistoryList,
-        loanItem,
+        newRepaidLoanSelected,
       ]
       return {
         ...state,

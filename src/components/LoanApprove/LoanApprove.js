@@ -44,7 +44,7 @@ class LoanApprove extends Component {
           </LoanApproveContent>
           <LoanApproveContent>
             <span>Country: </span>
-            <div>{country.value}</div>
+            <div>{country.label}</div>
           </LoanApproveContent>
           <LoanApproveContent>
             <span>Phone Number: </span>

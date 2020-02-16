@@ -148,22 +148,20 @@ export default function reducer(state = initialState, action) {
       };
     }
 
-    case AUTH_LOGIN: {
+    case AUTH_LOGIN:
       return {
         ...state,
         isLoading: true,
         errorMessage: '',
       };
-    };
 
-    case AUTH_LOGIN_SUCCESS: {
+    case AUTH_LOGIN_SUCCESS:
       return {
         ...state,
         isLoading: false,
         authenticated: true,
         errorMessage: '',
       };
-    };
 
     case AUTH_LOGIN_FAILED: {
       const { errorMessage } = action;

@@ -5,9 +5,13 @@ import {
   selectors as loanSelectors,
   actions as loanActions,
 } from '../../reducers/loans';
+import {
+  selectors as authSelectors,
+} from '../../reducers/auth';
 
 const mapStateToProps = (state) => ({
   loanList: loanSelectors.getLoanData(state),
+  userRole: authSelectors.getUserRole(state),
 })
 
 const mapDispatchToProps = {

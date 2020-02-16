@@ -50,27 +50,23 @@ class LoanApprove extends Component {
     }));
   };
 
-  handleRepay = (loanItem) => {
+  handleRepay = () => {
     const { loanRepay, loanSelectedId, saveHistoryLoanList } = this.props;
-    const historyLoanItem = { 
-      ...loanItem,
-      repaidDate: moment(new Date()),
-    };
     loanRepay(loanSelectedId);
-    saveHistoryLoanList(historyLoanItem);
+    saveHistoryLoanList(loanSelectedId);
 
     this.setState({
       isPopupOpen: false,
     })
   }
 
-  renderConfirmPopup = (loanItem) => (
+  renderConfirmPopup = () => (
     <LoanConfirmPopupWrap>
       <LoanConfirmContent>
         Do you want repay this loan ?
       </LoanConfirmContent>
       <LoanConfirmAction>
-        <LoanButton onClick={() => this.handleRepay(loanItem)}>Submit</LoanButton>
+        <LoanButton onClick={this.handleRepay}>Submit</LoanButton>
         <LoanButton dismiss onClick={this.togglePopup}>Cancel</LoanButton>
       </LoanConfirmAction>
     </LoanConfirmPopupWrap>
@@ -78,7 +74,7 @@ class LoanApprove extends Component {
 
   renderLoanListApprove = (loanItem) => {
     const {
-      country, amount, loanTerm,
+      country, amount, repaid, loanTerm,
       loanDate, phoneNumber, dateOfBirth,
       identificationNumber,
     } = loanItem;
@@ -98,7 +94,7 @@ class LoanApprove extends Component {
           </LoanApproveContent>
           <LoanApproveContent>
             <span>Country: </span>
-            <div>{country.value}</div>
+            <div>{country.label}</div>
           </LoanApproveContent>
           <LoanApproveContent>
             <span>Phone Number: </span>
@@ -107,6 +103,10 @@ class LoanApprove extends Component {
           <LoanApproveContent redColor>
             <span>Amount: </span>
             <div>{`$${amount.toLocaleString('en-GB')}`}</div>
+          </LoanApproveContent>
+          <LoanApproveContent redColor>
+            <span>Repaid: </span>
+            <div>{`$${repaid.toLocaleString('en-GB')}`}</div>
           </LoanApproveContent>
           <LoanApproveContent>
             <span>Term: </span>
@@ -128,7 +128,7 @@ class LoanApprove extends Component {
         {isPopupOpen && (
           <>
             <OverlayWrap overlay onClick={this.togglePopup} />
-            {this.renderConfirmPopup(loanItem)}
+            {this.renderConfirmPopup()}
           </>
         )}
 
@@ -163,7 +163,7 @@ class LoanApprove extends Component {
           getOptionLabel={option => `$${option.amount} - ${moment(option.loanDate).format("YYYY/MM/DD h:mm a")}`}
           getOptionValue={option => `$${option.amount} - ${moment(option.loanDate).format("YYYY/MM/DD h:mm a")}`}
         />
-        {isRepaySuccess && <LoanRepayMessage>Your loans is repaid successfully</LoanRepayMessage>}
+        {isRepaySuccess && <LoanRepayMessage>Your loan has been sucessfully repaid</LoanRepayMessage>}
         {loanSelected && this.renderLoanListApprove(loanSelected)}
       </RepaymentWrap>
     )

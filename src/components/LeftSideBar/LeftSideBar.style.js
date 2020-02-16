@@ -8,7 +8,7 @@ export const LeftSideBarWrap = styled.div`
     cursor: pointer;
     border-bottom: 1px solid #ccc;
     padding-left: 0px !important;
-    a {
+    a, div {
       padding: 15px 10px 15px 20px;
       display: flex;
       align-items: center;
@@ -21,7 +21,7 @@ export const LeftSideBarWrap = styled.div`
     &:hover {
       background-color: #37653e;
       border-color: #37653e;
-      a {
+      a, div {
         color: white;
       }
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { STATUS_TYPE } from '../../utils/enums';
+import { STATUS_TYPE, ROLE_TYPE } from '../../utils/enums';
 import {
   TableContentItem,
   TableHeadWrapper,
@@ -20,6 +20,7 @@ class LoanList extends Component {
   static propTypes = {
     loanRemove: PropTypes.func,
     loanList: PropTypes.array,
+    userRole: PropTypes.string,
   }
 
   handleLoanRemove = (loanId) => {
@@ -35,19 +36,26 @@ class LoanList extends Component {
     </LoanAction>
   );
 
-  renderLoanHeader = () => (
-    <TableHeadWrapper>
-      <TableHeader {...ColumnSize[0]} />
-      <TableHeader {...ColumnSize[1]} value="Identification Number" />
-      <TableHeader {...ColumnSize[2]} value="Amount" />
-      <TableHeader {...ColumnSize[3]} value="Term" />
-      <TableHeader {...ColumnSize[4]} value="Loan Date" />
-      <TableHeader {...ColumnSize[5]} value="Status" />
-      <TableHeader {...ColumnSize[6]} value="Action" />
-    </TableHeadWrapper>
-  )
+  renderLoanHeader = () => {
+    const { userRole } = this.props;
+    return (
+      <TableHeadWrapper>
+        <TableHeader {...ColumnSize[0]} />
+        <TableHeader {...ColumnSize[1]} value="Identification Number" />
+        <TableHeader {...ColumnSize[2]} value="Amount" />
+        <TableHeader {...ColumnSize[3]} value="Repaid" />
+        <TableHeader {...ColumnSize[4]} value="Term" />
+        <TableHeader {...ColumnSize[5]} value="Loan Date" />
+        <TableHeader {...ColumnSize[6]} value="Status" />
+        {userRole === ROLE_TYPE.ADMIN && (
+          <TableHeader {...ColumnSize[7]} value="Action" />
+        )}
+      </TableHeadWrapper>
+    )
+  }
 
   renderLoanContent = (values, index) => {
+    const { userRole } = this.props;
     return (
       <TableContentItem
         key={index}
@@ -55,19 +63,22 @@ class LoanList extends Component {
         <TableContent {...ColumnSize[0]}>{index + 1}</TableContent>
         <TableContent {...ColumnSize[1]}>{values.identificationNumber}</TableContent>
         <TableContent {...ColumnSize[2]}>{`$${values.amount.toLocaleString('en-GB')}`}</TableContent>
-        <TableContent {...ColumnSize[3]}>{moment(values.loanTerm).fromNow()}</TableContent>
-        <TableContent {...ColumnSize[4]}>{moment(values.loanDate).format("YYYY/MM/DD h:mm a")}</TableContent>
+        <TableContent {...ColumnSize[3]}>{`$${values.repaid.toLocaleString('en-GB')}`}</TableContent>
+        <TableContent {...ColumnSize[4]}>{moment(values.loanTerm).fromNow()}</TableContent>
+        <TableContent {...ColumnSize[5]}>{moment(values.loanDate).format("YYYY/MM/DD h:mm a")}</TableContent>
         <TableContent
-          {...ColumnSize[5]}
+          {...ColumnSize[6]}
           approved={values.status === STATUS_TYPE.APPROVED}
           dismiss={values.status === STATUS_TYPE.DISMISS}
           paid={values.status === STATUS_TYPE.PAID}
         >
           {values.status}
         </TableContent>
-        <TableContent {...ColumnSize[6]} actionType>
-          {this.renderActionButtons(values.id)}
-        </TableContent>
+        {userRole === ROLE_TYPE.ADMIN && (
+          <TableContent {...ColumnSize[7]} actionType>
+            {this.renderActionButtons(values.id)}
+          </TableContent>
+        )}
       </TableContentItem>
     )
   }
