@@ -450,16 +450,6 @@ export const FormItem = styled.div.attrs({
     margin-bottom: 0px;
     width: 100%;
   `}
-
-  .chalktalk-icon-eyes {
-    position: absolute;
-    z-index: 3;
-    right: 0px;
-    top: 10px;
-    font-size: 22px;
-    cursor: pointer;
-    color: #000 !important;
-  }
 `;
 
 export const FormError = styled.p`
@@ -559,11 +549,6 @@ export const FormValidateItem = styled.div`
     align-items: center;
     justify-content: center;
     color: #fff;
-  }
-  .icon-chalktalk-delete {
-    font-size: 10px;
-    font-weight: bold;
-    background-color: #d6d6d6;
   }
   .icon-checkmark {
     font-size: 15px;

@@ -10,7 +10,6 @@ node_modules
 .DS_Store
 celerybeat-schedule
 celerybeat.pid
-chalktalk/settings/dev.py
 assets/bundles
 webpack-stats-local.json
 stats.json

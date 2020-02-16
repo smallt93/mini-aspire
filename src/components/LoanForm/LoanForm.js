@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Formik, Form } from 'formik';
+import moment from 'moment';
 import * as Yup from 'yup';
 import FormInput from '../FormInput/FormInput';
 import { countryData } from './CountryData';
@@ -40,11 +41,18 @@ class LoanForm extends Component {
 
   loanSubmit = (values) => {
     const { loanSubmit } = this.props;
+    const { loanTerm, amount } = values;
+    const loanDate = new Date();
+    const dayOfMonth = moment(loanTerm).diff(loanDate, 'days');
+    const weekOfMonths = Math.ceil(dayOfMonth / 7);
+    const payPerWeek = Math.round(amount / weekOfMonths);
+
     const loanValues = {
       ...values,
       id: Math.floor(Math.random() * 100),
       status: 'process',
-      loanDate: new Date(),
+      loanDate,
+      payPerWeek,
     }
     loanSubmit(loanValues);
   }

@@ -43,8 +43,8 @@ class LeftSideBar extends Component {
                 </Menu.Item>
               )}
 
-              <Menu.Item key="/payments">
-                <Link to="/payments">
+              <Menu.Item key="/repayments">
+                <Link to="/repayments">
                   <Icon type="snippets" />
                   <span>Repayments</span>
                 </Link>

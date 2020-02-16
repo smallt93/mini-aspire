@@ -54,7 +54,7 @@ class LoanList extends Component {
       >
         <TableContent {...ColumnSize[0]}>{index + 1}</TableContent>
         <TableContent {...ColumnSize[1]}>{values.identificationNumber}</TableContent>
-        <TableContent {...ColumnSize[2]}>{`$${values.amount}`}</TableContent>
+        <TableContent {...ColumnSize[2]}>{`$${values.amount.toLocaleString('en-GB')}`}</TableContent>
         <TableContent {...ColumnSize[3]}>{moment(values.loanTerm).fromNow()}</TableContent>
         <TableContent {...ColumnSize[4]}>{moment(values.loanDate).format("YYYY/MM/DD h:mm a")}</TableContent>
         <TableContent
