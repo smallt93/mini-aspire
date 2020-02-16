@@ -61,9 +61,9 @@ const adminRegister = (adminData) => ({
   adminData,
 });
 
-const adminRegisterSuccess = (userData) => ({
+const adminRegisterSuccess = (adminData) => ({
   type: AUTH_REGISTER_ADMIN_SUCCESS,
-  userData,
+  adminData,
 });
 
 const adminRegisterFailed = (errorMsg) => ({

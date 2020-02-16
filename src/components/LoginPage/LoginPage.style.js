@@ -84,7 +84,7 @@ export const LoginButton = styled.button`
   background-color: ${props => props.theme.colorStyled.ColorBgDefault};
   box-shadow: 0px 4px 6.5px 0 #ff9e1630;
   font-size: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   outline: none;
   cursor: pointer;
   &:hover {

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const LeftSideBarWrap = styled.div`
   border-right: 1px solid #ccc;
   height: 100vh;
+  background-color: #fff;
   .ant-menu-item {
     cursor: pointer;
     border-bottom: 1px solid #ccc;

@@ -7,7 +7,7 @@ import {
 } from '../../reducers/loans';
 
 const mapStateToProps = (state) => ({
-  isLoanSuccess: loanSelectors.getLoadSuccess(state),
+  isLoanSuccess: loanSelectors.getLoanSuccess(state),
 });
 
 const mapDispatchToProps = {

@@ -5,6 +5,7 @@ import MainLayout from './components/MainLayout';
 import LoginPage from './containers/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import LoanComponent from './components/LoanComponent';
+import LoanApprove from './containers/LoanApprove';
 
 import {
   AuthenticatedRoute,
@@ -23,6 +24,7 @@ class Router extends React.Component {
         <MainLayout>
           <Switch>
             <AuthenticatedRoute exact path="/loans" component={LoanComponent} />
+            <AuthenticatedRoute exact path="/loan-approves" component={LoanApprove} />
             <Redirect exact from="/" to="/loans" />
           </Switch>
         </MainLayout>

@@ -1,8 +1,7 @@
 import styled, { css, keyframes } from 'styled-components';
 
 const formElementCss = css`
-  border: none;
-  border-bottom: 1px solid #dbdbdb;
+  border: 1px solid #dbdbdb;
   color: #333;
   position: relative;
   outline: none;
@@ -162,9 +161,8 @@ export const FormInputWrapperStyled = styled.div`
   }
   .select__control {
     cursor: pointer;
-    border: none;
-    border-radius: 0px;
-    border-bottom: 1px solid #dbdbdb;
+    border-radius: 3px;
+    border: 1px solid #dbdbdb;
     padding: 5px 10px;
     min-height: 28px;
     &:hover {
@@ -213,8 +211,7 @@ export const FormInputWrapperStyled = styled.div`
     background-repeat: no-repeat;
     background-position: center right;
     input {
-      border: none;
-      border-bottom: 1px solid #dbdbdb;
+      border: 1px solid #dbdbdb;
       color: #333;
       position: relative;
       outline: none;

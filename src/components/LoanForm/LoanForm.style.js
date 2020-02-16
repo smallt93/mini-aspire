@@ -23,8 +23,8 @@ export const SubmitButton = styled(LoginButton)`
 export const LoanMessage = styled.div`
   width: 100%;
   text-align: center;
-  padding: 2em;
-  font-size: 1.5em;
+  padding: 1em;
+  font-size: 1.2em;
   background-color: ${props => props.theme.colorStyled.ColorSuccess};
   color: white;
   border-radius: 10px;

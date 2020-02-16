@@ -4,6 +4,6 @@ export const ColumnSize = [
   { },
   { size: 100 },
   { size: 100 },
-  { textCenter: true },
+  { textCenter: true, textUppercase: true },
   { size: 60, textCenter: true },
 ]

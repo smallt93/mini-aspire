@@ -92,6 +92,21 @@ export const TableHead = styled.div`
 export const TableRow = styled(TableHead)`
   color: ${props => props.theme.colorStyled.ColorPrimary};
   font-style: ${props => (props.italic ? 'italic' : 'initial')};
+  ${({ textUppercase }) => textUppercase && css`
+    text-transform: uppercase;
+  `}
+  ${({ approved }) => approved && css`
+    color: ${props => props.theme.colorStyled.ColorSuccessN};
+  `}
+  ${({ dismiss }) => dismiss && css`
+    color: ${props => props.theme.colorStyled.ColorRedDel};
+  `}
+  ${({ actionType }) => actionType && css`
+    cursor: pointer;
+    &:hover {
+      opacity: .7;
+    }
+  `}
 `;
 
 export const TableCheckboxLabel = styled.label`

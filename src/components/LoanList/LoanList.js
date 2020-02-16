@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
+import { STATUS_TYPE } from '../../utils/enums';
 import {
   TableContentItem,
   TableHeadWrapper,
@@ -11,12 +13,23 @@ import {
   LoanListWrap,
   LoanAction,
   LoanButton,
+  LoanNoDataMessage,
 } from './LoanList.style';
 
 class LoanList extends Component {
-  renderActionButtons = () => (
+  static propTypes = {
+    loanRemove: PropTypes.func,
+    loanList: PropTypes.array,
+  }
+
+  handleLoanRemove = (loanId) => {
+    const { loanRemove } = this.props;
+    loanRemove(loanId);
+  }
+
+  renderActionButtons = (loanId) => (
     <LoanAction>
-      <LoanButton>
+      <LoanButton onClick={() => this.handleLoanRemove(loanId)}>
         x
       </LoanButton>
     </LoanAction>
@@ -44,9 +57,15 @@ class LoanList extends Component {
         <TableContent {...ColumnSize[2]}>{`$${values.amount}`}</TableContent>
         <TableContent {...ColumnSize[3]}>{moment(values.loanTerm).fromNow()}</TableContent>
         <TableContent {...ColumnSize[4]}>{moment(values.loanDate).format("YYYY/MM/DD h:mm a")}</TableContent>
-        <TableContent {...ColumnSize[5]}>{values.status}</TableContent>
-        <TableContent {...ColumnSize[6]}>
-          {this.renderActionButtons()}
+        <TableContent
+          {...ColumnSize[5]}
+          approved={values.status === STATUS_TYPE.APPROVED}
+          dismiss={values.status === STATUS_TYPE.DISMISS}
+        >
+          {values.status}
+        </TableContent>
+        <TableContent {...ColumnSize[6]} actionType>
+          {this.renderActionButtons(values.id)}
         </TableContent>
       </TableContentItem>
     )
@@ -58,7 +77,14 @@ class LoanList extends Component {
       <LoanListWrap>
         {this.renderLoanHeader()}
         <TableContentWrapper>
-          {loanList.map(this.renderLoanContent)}
+          {loanList.length > 0
+            ? loanList.map(this.renderLoanContent)
+            : (
+              <LoanNoDataMessage>
+                Empty Loan
+              </LoanNoDataMessage>
+            )
+          }
         </TableContentWrapper>
       </LoanListWrap>
     );
