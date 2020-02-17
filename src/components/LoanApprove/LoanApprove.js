@@ -30,7 +30,7 @@ class LoanApprove extends Component {
   }
 
   renderLoanListApprove = (values, index) => {
-    const { country } = values;
+    const { country, owner } = values;
     return (
       <LoanApproveBlockWrap key={index}>
         <LoanApproveItem>
@@ -49,6 +49,10 @@ class LoanApprove extends Component {
           <LoanApproveContent>
             <span>Phone Number: </span>
             <div>{values.phoneNumber}</div>
+          </LoanApproveContent>
+          <LoanApproveContent>
+            <span>Owner: </span>
+            <div>{owner.userName}</div>
           </LoanApproveContent>
           <LoanApproveContent redColor>
             <span>Amount: </span>

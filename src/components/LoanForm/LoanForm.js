@@ -11,6 +11,7 @@ import {
   SubmitButton,
   LoanMessage,
 } from './LoanForm.style';
+import { ROLE_TYPE } from '../../utils/enums';
 
 const validationSchema = Yup.object().shape({
   identificationNumber: Yup.string()
@@ -24,6 +25,7 @@ const validationSchema = Yup.object().shape({
     .min(50)
     .required('The amount is required'),
   loanTerm: Yup.string().trim().required('The loan term is required'),
+  owner: Yup.string().trim().required('The owner is required'),
 });
 
 const initialValues = {
@@ -33,6 +35,7 @@ const initialValues = {
   phoneNumber: '',
   amount: '',
   loanTerm: '',
+  owner: '',
 };
 
 class LoanForm extends Component {
@@ -43,7 +46,7 @@ class LoanForm extends Component {
 
   loanSubmit = (values) => {
     const { loanSubmit } = this.props;
-    const { loanTerm, amount } = values;
+    const { loanTerm, amount, owner } = values;
     const loanDate = new Date();
     const dayOfMonth = moment(loanTerm).diff(loanDate, 'days');
     const weekOfMonths = Math.ceil(dayOfMonth / 7);
@@ -70,51 +73,62 @@ class LoanForm extends Component {
     );
   }
 
-  renderLoanForm = () => (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={this.loanSubmit}
-    >
-      <Form>
-        <FormInput
-          type="text"
-          name="identificationNumber"
-          label="Personal Identification Number"
-        />
-        <FormInput
-          type="date"
-          name="dateOfBirth"
-          label="Date Of Birth"
-        />
-        <FormInput
-          type="select"
-          name="country"
-          label="Country"
-          options={countryData}
-        />
-        <FormInput
-          type="number"
-          name="phoneNumber"
-          label="Phone Number"
-        />
-        <FormInput
-          type="number"
-          name="amount"
-          label="Amount (USD Only)"
-        />
-        <FormInput
-          type="date"
-          name="loanTerm"
-          label="Loan Term"
-          minDate={new Date()}
-        />
-        <SubmitAction>
-          {this.renderSubmitBtn()}
-        </SubmitAction>
-      </Form>
-    </Formik>
-  )
+  renderLoanForm = () => {
+    const { adminData } = this.props;
+    return (
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={this.loanSubmit}
+      >
+        <Form>
+          <FormInput
+            type="text"
+            name="identificationNumber"
+            label="Personal Identification Number"
+          />
+          <FormInput
+            type="date"
+            name="dateOfBirth"
+            label="Date Of Birth"
+          />
+          <FormInput
+            type="select"
+            name="country"
+            label="Country"
+            options={countryData}
+          />
+          <FormInput
+            type="number"
+            name="phoneNumber"
+            label="Phone Number"
+          />
+          <FormInput
+            type="select"
+            name="owner"
+            label="Owner"
+            options={[adminData]}
+            getOptionLabel={option => option.userName}
+            getOptionValue={option => option.userName}
+          />
+          <FormInput
+            type="number"
+            name="amount"
+            label="Amount (USD Only)"
+          />
+          <FormInput
+            type="date"
+            name="loanTerm"
+            label="Loan Term"
+            minDate={new Date()}
+          />
+          <SubmitAction>
+            {this.renderSubmitBtn()}
+          </SubmitAction>
+        </Form>
+      </Formik>
+    )
+  }
 
   renderLoanMessage = () => (
     <LoanMessage>

@@ -5,9 +5,15 @@ import {
   actions as loanActions,
   selectors as loanSelectors,
 } from '../../reducers/loans';
+import {
+  selectors as authSelectors
+} from '../../reducers/auth';
 
 const mapStateToProps = (state) => ({
   isLoanSuccess: loanSelectors.getLoanSuccess(state),
+  userRole: authSelectors.getUserRole(state),
+  userData: authSelectors.getUserData(state),
+  adminData: authSelectors.getAdminData(state),
 });
 
 const mapDispatchToProps = {

@@ -78,8 +78,9 @@ const login = (loginValue) => ({
   loginValue,
 });
 
-const loginSuccess = () => ({
+const loginSuccess = (role) => ({
   type: AUTH_LOGIN_SUCCESS,
+  role,
 });
 
 const loginFailed = (errorMessage) => ({
@@ -155,13 +156,16 @@ export default function reducer(state = initialState, action) {
         errorMessage: '',
       };
 
-    case AUTH_LOGIN_SUCCESS:
+    case AUTH_LOGIN_SUCCESS: {
+      const { role } = action;
       return {
         ...state,
         isLoading: false,
         authenticated: true,
+        userRole: role,
         errorMessage: '',
       };
+    }
 
     case AUTH_LOGIN_FAILED: {
       const { errorMessage } = action;
@@ -176,6 +180,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         authenticated: false,
+        userRole: null,
       }
     }
   

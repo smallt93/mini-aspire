@@ -76,7 +76,7 @@ class LoanApprove extends Component {
     const {
       country, amount, repaid, loanTerm,
       loanDate, phoneNumber, dateOfBirth,
-      identificationNumber,
+      identificationNumber, owner,
     } = loanItem;
     const { userRole } = this.props;
     const { isPopupOpen } = this.state;
@@ -99,6 +99,10 @@ class LoanApprove extends Component {
           <LoanApproveContent>
             <span>Phone Number: </span>
             <div>{phoneNumber}</div>
+          </LoanApproveContent>
+          <LoanApproveContent>
+            <span>Owner: </span>
+            <div>{owner.userName}</div>
           </LoanApproveContent>
           <LoanApproveContent redColor>
             <span>Amount: </span>
