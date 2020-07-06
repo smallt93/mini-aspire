@@ -4,12 +4,7 @@ import { Link } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormInput from '../FormInput/FormInput';
-import {
-  LoginItemWrap,
-  LoginItem,
-  LoginTitle,
-  LoginButton,
-} from './LoginPage.style';
+import { LoginButton } from './LoginPage.style';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().trim().required('Invalid email'),
@@ -22,14 +17,14 @@ const initialValues = {
   password: '',
 };
 
-export default class StudentLoginForm extends PureComponent {
+export default class LoginForm extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   static propTypes = {
-    login: PropTypes.func.isRequired,
+    login: PropTypes.func,
     isLoading: PropTypes.bool,
     errorMessage: PropTypes.any,
   }
@@ -50,36 +45,29 @@ export default class StudentLoginForm extends PureComponent {
 
   render() {
     return (
-      <LoginItemWrap>
-        <LoginItem>
-          <LoginTitle>
-            <h1>Welcome to Aspire</h1>
-          </LoginTitle>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={this.loginSubmit}
-          >
-            <Form noValidate>
-              <FormInput
-                type="email"
-                name="email"
-                label="Email"
-              />
-              <FormInput
-                type={'password'}
-                name="password"
-                label="Password"
-              />
-              {this.renderLoginBtn()}
-            </Form>
-          </Formik>
-
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={this.loginSubmit}
+      >
+        <Form noValidate>
+          <FormInput
+            type="email"
+            name="email"
+            label="Email"
+          />
+          <FormInput
+            type='password'
+            name="password"
+            label="Password"
+          />
+          {this.renderLoginBtn()}
+          
           <Link to="/register">
             <LoginButton register>Register</LoginButton>
           </Link>
-        </LoginItem>
-      </LoginItemWrap>
+        </Form>
+      </Formik>
     );
   }
 }

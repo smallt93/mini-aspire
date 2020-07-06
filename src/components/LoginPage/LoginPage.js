@@ -5,6 +5,9 @@ import LoginForm from '../../containers/LoginPage/LoginForm';
 import {
   LoginPageWrap,
   LoginMessage,
+  LoginItemWrap,
+  LoginItem,
+  LoginTitle,
 } from './LoginPage.style';
 
 class LoginPage extends Component {
@@ -23,7 +26,15 @@ class LoginPage extends Component {
     return (
       <LoginPageWrap>
         {this.renderStatusMessage()}
-        <LoginForm />
+        <LoginItemWrap>
+          <LoginItem>
+            <LoginTitle>
+              <h1>Welcome to Aspire</h1>
+            </LoginTitle>
+           
+            <LoginForm />
+          </LoginItem>
+        </LoginItemWrap>
       </LoginPageWrap>
     );
   }
